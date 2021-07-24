@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  postgres:
+    # コンテナ名
+    container_name: clean-archi-postgres
+    # Dockerfile のディレクトリパス
+    build:
+      context: .
+      dockerfile: ./build/postgres/Dockerfile
+    # postgres 設定
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+
+  app:
+    container_name: clean-archi-app
+    depends_on:
+      - postgres # postgres のビルド後に app をビルド
+    ports:
+      - 8080:8080 # コンテナの受け付けるポートを指定
+    build:
+      context: .
+      dockerfile: ./build/app/Dockerfile
+    volumes:
+      - ./:/go/src/app
