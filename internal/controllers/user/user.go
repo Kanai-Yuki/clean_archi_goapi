@@ -9,16 +9,16 @@ import (
 )
 
 type Controller struct {
-	application.InterfaceApplication
+	app application.InterfaceApplication
 }
 
-func New() Controller {
-	return Controller{}
+func New(app application.InterfaceApplication) *Controller {
+	return &Controller{app: app}
 }
 
 // PostUsers ...
 func (c Controller) PostUser(w http.ResponseWriter, r *http.Request) {
-	controller := post.New(c.InterfaceApplication)
+	controller := post.New(c.app)
 	controllers.ResponseHandler(w, r, controller.Exec)
 }
 

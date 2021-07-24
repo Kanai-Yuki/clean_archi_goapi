@@ -1,11 +1,13 @@
 package application
 
-import "github.com/Kanai-Yuki/clean_archi_goapi/internal/model/user"
+import (
+	modelUser "github.com/Kanai-Yuki/clean_archi_goapi/internal/model/user"
+)
 
 type Application struct {
-	user.InterfaceModel
+	model modelUser.InterfaceModel
 }
 
-func New() Application {
-	return Application{}
+func New(model modelUser.InterfaceModel) *Application {
+	return &Application{model: model}
 }

@@ -1,11 +1,16 @@
 package user
 
-import "github.com/Kanai-Yuki/clean_archi_goapi/internal/model"
+import (
+	"github.com/Kanai-Yuki/clean_archi_goapi/internal/model"
+	"github.com/Kanai-Yuki/clean_archi_goapi/internal/postgres"
+)
 
 type Model struct {
-	bm model.BaseModel
+	model.BaseModel
 }
 
-func New() *Model {
-	return &Model{}
+func New(posCli *postgres.Client) *Model {
+	m := &Model{}
+	m.SetPosCli(posCli.DB)
+	return m
 }

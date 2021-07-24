@@ -2,6 +2,7 @@ package post
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/Kanai-Yuki/clean_archi_goapi/internal/application"
@@ -16,6 +17,8 @@ func New(app application.InterfaceApplication) Controller {
 }
 
 func (c Controller) Exec(w http.ResponseWriter, r *http.Request) (interface{}, int, error) {
+	fmt.Println("Execまできてるよ")
+
 	// 入力値をアプリケーションが必要な値(InputData)に変換
 	var req RequestPostUser
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {

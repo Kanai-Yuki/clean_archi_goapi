@@ -1,6 +1,8 @@
 package application
 
 import (
+	"fmt"
+
 	"github.com/Kanai-Yuki/clean_archi_goapi/internal/entities"
 
 	"github.com/google/uuid"
@@ -9,12 +11,14 @@ import (
 // Use Case Interactor
 // ドメイン(Entities)を生成し、DataAccessInterfaceを呼び出す
 func (a Application) CreateUser(name string, age int64) (string, error) {
+	fmt.Println("CreateUserまできたよ")
+
 	// UseCaseInteractor(Application) → DataAccessInterface
-	return a.InterfaceModel.CreateUser(createUserEntitiy(name, age))
+	return a.model.CreateUser(createUserEntitiy(name, age))
 }
 
 func (a Application) GetUser(uuid string) (*entities.User, error) {
-	return a.InterfaceModel.GetUser(uuid)
+	return a.model.GetUser(uuid)
 }
 
 func createUserEntitiy(name string, age int64) *entities.User {
