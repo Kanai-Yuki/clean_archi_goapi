@@ -3,9 +3,9 @@ package entities
 // Input Date
 // DS:Date Structure
 type User struct {
-	UUID string
-	Name string
-	Age  int64
+	UUID string `db:"uuid"`
+	Name string `db:"name"`
+	Age  int64  `db:"age"`
 }
 
 func New(uuid string, name string, age int64) *User {

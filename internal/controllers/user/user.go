@@ -5,6 +5,7 @@ import (
 
 	"github.com/Kanai-Yuki/clean_archi_goapi/internal/application"
 	"github.com/Kanai-Yuki/clean_archi_goapi/internal/controllers"
+	"github.com/Kanai-Yuki/clean_archi_goapi/internal/controllers/user/detail"
 	"github.com/Kanai-Yuki/clean_archi_goapi/internal/controllers/user/post"
 )
 
@@ -23,4 +24,7 @@ func (c Controller) PostUser(w http.ResponseWriter, r *http.Request) {
 }
 
 // DetailUsers ...
-func (c Controller) DetailUser(w http.ResponseWriter, r *http.Request) {}
+func (c Controller) DetailUser(w http.ResponseWriter, r *http.Request) {
+	controller := detail.New(c.app)
+	controllers.ResponseHandler(w, r, controller.Exec)
+}

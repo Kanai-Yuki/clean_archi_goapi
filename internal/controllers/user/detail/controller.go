@@ -1,4 +1,4 @@
-package post
+package detail
 
 import (
 	"encoding/json"
@@ -16,21 +16,17 @@ func New(app application.InterfaceApplication) Controller {
 }
 
 func (c Controller) Exec(w http.ResponseWriter, r *http.Request) (interface{}, int, error) {
-	// 入力値をアプリケーションが必要な値(InputData)に変換
-	var req RequestPostUser
+	var req RequestDetailUser
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		return nil, http.StatusBadRequest, err
 	}
 
-	// バリデーション
+	// バリデーションチェック
 
-	// Controller to UseCaseInteractor
-	// 変換した値をUseCaseInteractor(Applicatin)に渡す
-	uuid, err := c.app.CreateUser(req.Name, req.Age)
+	user, err := c.app.GetUser(req.UUID)
 	if err != nil {
 		return nil, http.StatusInternalServerError, err
 	}
 
-	// WEBではPresenterを呼び出さずOutputDataを返却
-	return ResponsePostUser{UUID: uuid}, http.StatusOK, nil
+	return ResponseDetailUser{user.Name, user.Age}, http.StatusOK, nil
 }
